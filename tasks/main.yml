@@ -1,0 +1,13 @@
+---
+- name: Install Nginx
+  yum: name=nginx state=latest
+
+- name: Add nginx.conf
+  copy: src=nginx.conf dest=/etc/nginx/nginx.conf
+
+- name: Set nginx to start at boot time
+  service: name=nginx state=running enabled=yes
+  ignore_errors: yes
+
+- name: Create /var/www directory
+  file: path=/var/www state=directory owner=nginx group=nginx
